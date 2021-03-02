@@ -3,14 +3,11 @@ import crypto from 'crypto';
 
 export default class FSDB {
     constructor(config)      {
-        this.root            = config.root + (config.root.endsWith('/') ? '' : '/');
-        this.maxDirs         = config.dirs || 1e4;    
+        this.root     = config.root + (config.root.endsWith('/') ? '' : '/');
+        this.maxDirs  = config.maxDirs || 1e4;    
     }
-
     async open()             {
-        await this.setDir(this.root);
-
-        return;
+        return await this.setDir(this.root);
     }
     async clear()            {
         await this.setDir(this.root, true);
