@@ -19,9 +19,11 @@ import Database from './db.js';
   });
   
   // Ensure directory exists, create if not
+  
   await db.open();
   
   // Save data
+  
   const example = {
     id: 12345,
     username: 'test',
@@ -41,10 +43,9 @@ import Database from './db.js';
   const exampleCopy = await db.get(example.username);
   
   // Delete data
-  
-  await db.del(example.id);
-  
   // example.username entry still exists however since it's a hard link
+    
+  await db.del(example.id);
   
   // Iterate database
   // Bind objects to this method for more complex manipulations
