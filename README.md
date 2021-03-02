@@ -1,2 +1,73 @@
 # kv.db
 A simple node.js embedded key value database
+
+# Usage
+
+```javascript
+
+import Database from './db.js';
+
+(async () => {
+
+  // Create a new database. Root directory required, maxDirs = 1e4
+  // maxDirs is in place to keep files per directory managable
+  
+  const db = new Database({
+    root    : '/path/to/database/directory',
+    maxDirs : 1e4
+  });
+  
+  // Ensure directory exists, create if not
+  await db.open();
+  
+  // Save data
+  const example = {
+    id: 12345,
+    username: 'test',
+    posts: 54,
+    tags: ['green', 'red', 'blue']
+  };
+  
+  await db.set(example.id, example);
+  
+  // Link another property to same file
+ 
+  await db.link(example.username, example.id);
+  
+  // Get data
+  // exampleCopy should be identical to example
+  
+  const exampleCopy = await db.get(example.username);
+  
+  // Delete data
+  
+  await db.del(example.id);
+  
+  // example.username entry still exists however since it's a hard link
+  
+  // Iterate database
+  
+  await db.each(async function(data, key, bucket) {
+    void console.log({data, key, bucket)}
+  });
+  
+  // Bind objects to this method for more complex manipulations
+  
+  // Clear database (delete everything)
+  
+  await db.clear();
+  
+  // Update an entry
+  // Objects will be merged, Arrays will be concatenated (with dups removed)
+  
+  await db.update(example.id, {
+    posts: 65,
+    tags: ['red']
+  });
+  
+  
+
+})()
+
+
+```
