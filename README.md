@@ -1,7 +1,8 @@
 # kv.db
-A simple node.js embedded key value database
+A simple node.js embedded key value database. Values can only be JS Objects.
 
 # Usage
+Review db.js for a deeper understanding on how to use. It's only 100 lines of code.
 
 ```javascript
 
@@ -46,28 +47,24 @@ import Database from './db.js';
   // example.username entry still exists however since it's a hard link
   
   // Iterate database
-  
+  // Bind objects to this method for more complex manipulations
+    
   await db.each(async function(data, key, bucket) {
     void console.log({data, key, bucket)}
   });
-  
-  // Bind objects to this method for more complex manipulations
   
   // Clear database (delete everything)
   
   await db.clear();
   
   // Update an entry
-  // Objects will be merged, Arrays will be concatenated (with dups removed)
+  // Objects will be merged via Object.assign
   
   await db.update(example.id, {
     posts: 65,
     tags: ['red']
   });
-  
-  
-
-})()
-
+ 
+})();
 
 ```
