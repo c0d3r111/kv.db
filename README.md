@@ -11,7 +11,7 @@ import Database from './db.js';
 (async () => {
 
   // Create a new database. Root directory required, maxDirs = 1e4
-  // maxDirs is in place to keep files per directory managable
+  // maxDirs is in place to keep files per directory manageable
   
   const db = new Database({
     root    : '/path/to/database/directory',
