@@ -1,7 +1,7 @@
 import fs     from 'fs/promises';
 import crypto from 'crypto';
 
-export default class FSDB {
+export default class Database {
     constructor(config)      {
         this.root     = config.root + (config.root.endsWith('/') ? '' : '/');
         this.maxDirs  = config.maxDirs || 1e4;    
